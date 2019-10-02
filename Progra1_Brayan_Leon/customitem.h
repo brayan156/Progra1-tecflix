@@ -9,7 +9,15 @@ class Customitem : public QGraphicsPixmapItem
 {
 public:
     Customitem();
-    void mousePressEvent(QGraphicsSceneMouseEvent *event);
+//    void mousePressEvent(QGraphicsSceneMouseEvent *event);
+
+
+
+
+
+    QString cvdata;
+    QString Name;
+    QString link;
 };
 
 #endif // CUSTOMITEM_H

@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -25,15 +25,27 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        button.cpp \
+        buttonfactory.cpp \
+        custombutton.cpp \
         customitem.cpp \
+        custompagebutton.cpp \
         customview.cpp \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+        modebutton.cpp \
+        pasarbutton.cpp
 
 HEADERS += \
+        button.h \
+        buttonfactory.h \
+        custombutton.h \
         customitem.h \
+        custompagebutton.h \
         customview.h \
-        mainwindow.h
+        mainwindow.h \
+        modebutton.h \
+        pasarbutton.h
 
 FORMS += \
         mainwindow.ui

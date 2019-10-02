@@ -1,3 +1,4 @@
+
 #include "mainwindow.h"
 #include <QApplication>
 #include <iostream>
@@ -38,21 +39,8 @@ movie_facebook_likes
 using namespace std;
 int main(int argc, char *argv[])
 {
-//    ifstream lectura;
-//    lectura.open("movie_metadata.csv",ios::in);
-
-//    for (std::string linea; std::getline(lectura, linea); )
-//    {
-
-//        stringstream registro(linea);
 
 
-//        for (std::string dato; std::getline(registro, dato, ','); )
-//        {
-//            std::cout << dato << '\n';
-//        }
-//        std::cout << '\n';
-//    }
     QApplication a(argc, argv);
     MainWindow w;
     w.show();
