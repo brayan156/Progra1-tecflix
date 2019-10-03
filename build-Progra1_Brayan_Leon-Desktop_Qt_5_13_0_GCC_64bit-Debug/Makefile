@@ -57,6 +57,7 @@ SOURCES       = ../Progra1_Brayan_Leon/button.cpp \
 		../Progra1_Brayan_Leon/custombutton.cpp \
 		../Progra1_Brayan_Leon/customitem.cpp \
 		../Progra1_Brayan_Leon/custompagebutton.cpp \
+		../Progra1_Brayan_Leon/customscroll.cpp \
 		../Progra1_Brayan_Leon/customview.cpp \
 		../Progra1_Brayan_Leon/main.cpp \
 		../Progra1_Brayan_Leon/mainwindow.cpp \
@@ -67,6 +68,7 @@ OBJECTS       = button.o \
 		custombutton.o \
 		customitem.o \
 		custompagebutton.o \
+		customscroll.o \
 		customview.o \
 		main.o \
 		mainwindow.o \
@@ -252,6 +254,7 @@ DIST          = ../Qt5.13.0/5.13.0/gcc_64/mkspecs/features/spec_pre.prf \
 		../Progra1_Brayan_Leon/custombutton.h \
 		../Progra1_Brayan_Leon/customitem.h \
 		../Progra1_Brayan_Leon/custompagebutton.h \
+		../Progra1_Brayan_Leon/customscroll.h \
 		../Progra1_Brayan_Leon/customview.h \
 		../Progra1_Brayan_Leon/mainwindow.h \
 		../Progra1_Brayan_Leon/modebutton.h \
@@ -260,6 +263,7 @@ DIST          = ../Qt5.13.0/5.13.0/gcc_64/mkspecs/features/spec_pre.prf \
 		../Progra1_Brayan_Leon/custombutton.cpp \
 		../Progra1_Brayan_Leon/customitem.cpp \
 		../Progra1_Brayan_Leon/custompagebutton.cpp \
+		../Progra1_Brayan_Leon/customscroll.cpp \
 		../Progra1_Brayan_Leon/customview.cpp \
 		../Progra1_Brayan_Leon/main.cpp \
 		../Progra1_Brayan_Leon/mainwindow.cpp \
@@ -642,8 +646,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../Qt5.13.0/5.13.0/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../Progra1_Brayan_Leon/button.h ../Progra1_Brayan_Leon/buttonfactory.h ../Progra1_Brayan_Leon/custombutton.h ../Progra1_Brayan_Leon/customitem.h ../Progra1_Brayan_Leon/custompagebutton.h ../Progra1_Brayan_Leon/customview.h ../Progra1_Brayan_Leon/mainwindow.h ../Progra1_Brayan_Leon/modebutton.h ../Progra1_Brayan_Leon/pasarbutton.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../Progra1_Brayan_Leon/button.cpp ../Progra1_Brayan_Leon/buttonfactory.cpp ../Progra1_Brayan_Leon/custombutton.cpp ../Progra1_Brayan_Leon/customitem.cpp ../Progra1_Brayan_Leon/custompagebutton.cpp ../Progra1_Brayan_Leon/customview.cpp ../Progra1_Brayan_Leon/main.cpp ../Progra1_Brayan_Leon/mainwindow.cpp ../Progra1_Brayan_Leon/modebutton.cpp ../Progra1_Brayan_Leon/pasarbutton.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../Progra1_Brayan_Leon/button.h ../Progra1_Brayan_Leon/buttonfactory.h ../Progra1_Brayan_Leon/custombutton.h ../Progra1_Brayan_Leon/customitem.h ../Progra1_Brayan_Leon/custompagebutton.h ../Progra1_Brayan_Leon/customscroll.h ../Progra1_Brayan_Leon/customview.h ../Progra1_Brayan_Leon/mainwindow.h ../Progra1_Brayan_Leon/modebutton.h ../Progra1_Brayan_Leon/pasarbutton.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../Progra1_Brayan_Leon/button.cpp ../Progra1_Brayan_Leon/buttonfactory.cpp ../Progra1_Brayan_Leon/custombutton.cpp ../Progra1_Brayan_Leon/customitem.cpp ../Progra1_Brayan_Leon/custompagebutton.cpp ../Progra1_Brayan_Leon/customscroll.cpp ../Progra1_Brayan_Leon/customview.cpp ../Progra1_Brayan_Leon/main.cpp ../Progra1_Brayan_Leon/mainwindow.cpp ../Progra1_Brayan_Leon/modebutton.cpp ../Progra1_Brayan_Leon/pasarbutton.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../Progra1_Brayan_Leon/mainwindow.ui $(DISTDIR)/
 
 
@@ -2631,7 +2635,136 @@ custombutton.o: ../Progra1_Brayan_Leon/custombutton.cpp ../Progra1_Brayan_Leon/c
 		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/QMetaType \
 		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/QPushButton \
 		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qpushbutton.h \
-		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qabstractbutton.h
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qabstractbutton.h \
+		../Progra1_Brayan_Leon/customview.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/QGraphicsView \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qgraphicsview.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qscrollarea.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qframe.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/QtWidgets \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/QtWidgetsDepends \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qstyleoption.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qslider.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qabstractslider.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qstyle.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qtabbar.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qrubberband.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qabstractitemview.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qaccessiblewidget.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qaction.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qactiongroup.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qapplication.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qboxlayout.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qlayout.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qlayoutitem.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qgridlayout.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qbuttongroup.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qcalendarwidget.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qcheckbox.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qcolordialog.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qdialog.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qcolormap.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qcolumnview.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qcombobox.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qcommandlinkbutton.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qcommonstyle.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qcompleter.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qdatawidgetmapper.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qdatetimeedit.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qdial.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qdialogbuttonbox.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qdirmodel.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qfileiconprovider.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qdockwidget.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qdrawutil.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qerrormessage.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qfiledialog.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qfilesystemmodel.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qfocusframe.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qfontcombobox.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qfontdialog.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qformlayout.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/QLayout \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qgesture.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qgesturerecognizer.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qgraphicsanchorlayout.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qgraphicslayout.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qgraphicslayoutitem.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qgraphicseffect.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qgraphicsgridlayout.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qgraphicsitemanimation.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qgraphicslinearlayout.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qgraphicsproxywidget.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qgraphicswidget.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qgraphicssceneevent.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qgraphicstransform.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtGui/QVector3D \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qgroupbox.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qheaderview.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qinputdialog.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qlineedit.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qitemdelegate.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qitemeditorfactory.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qkeyeventtransition.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qkeysequenceedit.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qlabel.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qlcdnumber.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qlistview.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qlistwidget.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qmdiarea.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qmdisubwindow.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qmenu.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qmenubar.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qmessagebox.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qmouseeventtransition.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qopenglwidget.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/QWidget \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qplaintextedit.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qtextedit.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qprogressbar.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qprogressdialog.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qproxystyle.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/QCommonStyle \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qradiobutton.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qscrollbar.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qscroller.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/QPointF \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/QScrollerProperties \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qscrollerproperties.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qshortcut.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qsizegrip.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qspinbox.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qsplashscreen.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qsplitter.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qstackedlayout.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qstackedwidget.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qstatusbar.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qstyleditemdelegate.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qstylefactory.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qstylepainter.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qstyleplugin.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qsystemtrayicon.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qtableview.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qtablewidget.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qtextbrowser.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qtoolbar.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qtoolbox.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qtoolbutton.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qtooltip.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qtreeview.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qtreewidget.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qtreewidgetitemiterator.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qundogroup.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qundostack.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qundoview.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qwhatsthis.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qwidgetaction.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qwizard.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qtwidgetsversion.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o custombutton.o ../Progra1_Brayan_Leon/custombutton.cpp
 
 customitem.o: ../Progra1_Brayan_Leon/customitem.cpp ../Progra1_Brayan_Leon/customitem.h \
@@ -3085,6 +3218,114 @@ custompagebutton.o: ../Progra1_Brayan_Leon/custompagebutton.cpp ../Progra1_Braya
 		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qpushbutton.h \
 		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qabstractbutton.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o custompagebutton.o ../Progra1_Brayan_Leon/custompagebutton.cpp
+
+customscroll.o: ../Progra1_Brayan_Leon/customscroll.cpp ../Progra1_Brayan_Leon/customscroll.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/QScrollBar \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qscrollbar.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtGui/qtguiglobal.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qglobal.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qconfig.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qtcore-config.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qsystemdetection.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qprocessordetection.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qcompilerdetection.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qtypeinfo.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qsysinfo.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qlogging.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qflags.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qatomic.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qbasicatomic.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qgenericatomic.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qatomic_msvc.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qglobalstatic.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qmutex.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qnumeric.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qversiontagging.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtGui/qtgui-config.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qwidget.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtGui/qwindowdefs.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qobjectdefs.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qnamespace.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtGui/qwindowdefs_win.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qobject.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qstring.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qchar.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qbytearray.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qrefcount.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qarraydata.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qstringliteral.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qstringalgorithms.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qstringview.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qstringbuilder.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qlist.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qalgorithms.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qiterator.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qhashfunctions.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qpair.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qvector.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qpoint.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qbytearraylist.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qstringlist.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qregexp.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qstringmatcher.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qcoreevent.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qscopedpointer.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qmetatype.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qvarlengtharray.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qcontainerfwd.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qobject_impl.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qmargins.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtGui/qpaintdevice.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qrect.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qsize.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtGui/qpalette.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtGui/qcolor.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtGui/qrgb.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtGui/qrgba64.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtGui/qbrush.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtGui/qmatrix.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtGui/qpolygon.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtGui/qregion.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qdatastream.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qiodevice.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qline.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtGui/qtransform.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtGui/qpainterpath.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtGui/qimage.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtGui/qpixelformat.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtGui/qpixmap.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qsharedpointer.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qshareddata.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qhash.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtGui/qfont.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtGui/qfontmetrics.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtGui/qfontinfo.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qsizepolicy.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtGui/qcursor.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtGui/qkeysequence.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtGui/qevent.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qvariant.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qmap.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qdebug.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qtextstream.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qlocale.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qset.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qcontiguouscache.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qurl.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qurlquery.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qfile.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtCore/qfiledevice.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtGui/qvector2d.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtGui/qtouchdevice.h \
+		../Qt5.13.0/5.13.0/gcc_64/include/QtWidgets/qabstractslider.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o customscroll.o ../Progra1_Brayan_Leon/customscroll.cpp
 
 customview.o: ../Progra1_Brayan_Leon/customview.cpp ../Progra1_Brayan_Leon/customview.h \
 		../Progra1_Brayan_Leon/mainwindow.h \
