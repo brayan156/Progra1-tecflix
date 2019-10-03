@@ -30,6 +30,7 @@ SOURCES += \
         custombutton.cpp \
         customitem.cpp \
         custompagebutton.cpp \
+        customscroll.cpp \
         customview.cpp \
         main.cpp \
         mainwindow.cpp \
@@ -42,6 +43,7 @@ HEADERS += \
         custombutton.h \
         customitem.h \
         custompagebutton.h \
+        customscroll.h \
         customview.h \
         mainwindow.h \
         modebutton.h \

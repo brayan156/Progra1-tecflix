@@ -29,11 +29,14 @@ public:
     void mostrar_paginacion();
     void poner_botones();
     void pasar_pagina();
+    void actualizar_scroll(int pagina_actual,int slidepos);
+    void crear_scroll();
+    void crear_pagina_scroll();
     void resizeEvent(QResizeEvent *event);
     QGraphicsScene* crear_pagina(int pagina);
     int primer_boton=0;
-    int pagina_actual=0;
-    QString modo="pagina";
+    int pagina_actual=1;
+    QString modo="scroll";
     QString dataset;
     int botones_totales;
     int cantidad_paginas;

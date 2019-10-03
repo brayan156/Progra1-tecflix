@@ -18,15 +18,11 @@ void Customview::wheelEvent(QWheelEvent *event)
       escala*=(1/scaleFactor);
     }
     main->calcular_tarjetas();
-    main->mostrar_paginacion();
+    if (this->main->modo.compare("pagina")==0){this->main->mostrar_paginacion();}
+    else if (this->main->modo.compare("scroll")==0){this->main->crear_scroll();}
+    else if (this->main->modo.compare("todo")==0){this->main->mostrar_todo();}
     main->poner_botones();
 
 
 
-}
-
-void Customview::mousePressEvent(QMouseEvent *event)
-{
-
-           QGraphicsView::mousePressEvent(event);
 }

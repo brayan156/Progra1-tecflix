@@ -9,6 +9,8 @@
 #include <fstream>
 #include <sstream>
 #include "custompagebutton.h"
+#include "customscroll.h"
+
 
 
 using namespace std;
@@ -17,12 +19,15 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     scene=new QGraphicsScene ();
-
     ui->setupUi(this);
     this->leer_csv();
     this->ui->graphicsView->setScene(scene);
     this->calcular_tarjetas();
-    this->mostrar_paginacion();
+    CustomScroll *scroll=new CustomScroll;
+    scroll->main=this;
+    this->ui->graphicsView->setVerticalScrollBar(scroll);
+
+//    this->mostrar_todo();
     ui->groupBox->setAccessibleDescription("no tengo layout");
     this->poner_botones();
 //    QImage image("indice.jpeg");
@@ -30,26 +35,6 @@ MainWindow::MainWindow(QWidget *parent) :
 //    item=new QGraphicsPixmapItem(QPixmap::fromImage(image));
 //    item->update(item->x(),item->y(),100,100);
     ui->graphicsView->main=this;
-     Customitem *iten=new Customitem;
-
-
-
-
-//     Customitem *ite;
-
-//    Customview *view=new Customview;
-//    view->setScene(scene);
-//    view->resize(100,100);
-//    view->move(100,100);
-//    view->show();
-//     item->setX(0);
-//     item->setY(0);
-//    scene->addItem(item);
-    QImage imagen;
-    QPixmap pixmap;
-
-
-
 
      mManager = new QNetworkAccessManager(this);
      connect(mManager, &QNetworkAccessManager::finished, this,[&] (QNetworkReply *reply)
@@ -67,40 +52,8 @@ MainWindow::MainWindow(QWidget *parent) :
 //                        qDebug()<<key<<" : "<<valuesO[key].toString();
 //                    }
 
-
-
-//                }
-
-//            imagen.loadFromData(data);
-//            QFile file("/home/brayan/myImage.jpeg");
-//            file.open(QIODevice::WriteOnly);
-//            file.write((data));
-//            file.close();
-
-
-
-
-
-
              });
 
-//    QUrl url("https://thumbs.dreamstime.com/b/manos-que-sostienen-la-tierra-azul-en-la-nube-y-el-cielo-elementos-de-este-imag-61052787.jpg");
-
-
-
-//    QUrl url("http://www.omdbapi.com/?apikey=cf31fe72&i=tt0378407&plot=full");
-//    QNetworkRequest request(url);
-//    mManager->get(request);
-
-
-//    QTime dieTime= QTime::currentTime().addMSecs(500);
-//    while (QTime::currentTime() < dieTime)
-//        QCoreApplication::processEvents(QEventLoop::AllEvents, 1000);
-//        iten->setPixmap(QPixmap::fromImage(imagen));
-//        iten->setX(800);
-//        iten->setY(800);
-
-//        scene->addItem(iten);
 
 }
 
@@ -147,8 +100,10 @@ void MainWindow::leer_csv()
 }
 
 void MainWindow::calcular_tarjetas()
-{
-    cantidad_tarjetas=(this->width()/(220*this->ui->graphicsView->escala))*(this->height()/(220*this->ui->graphicsView->escala));
+{   int tarjetasx=(this->width()/(220*this->ui->graphicsView->escala));
+    cantidad_tarjetas=tarjetasx*((this->height()-61)/(220*this->ui->graphicsView->escala));
+    double cant=tarjetasx*((this->height()-61)/(220*this->ui->graphicsView->escala));
+    if (cant-cantidad_tarjetas!=0 && cantidad_tarjetas!=0){cantidad_tarjetas+=1;}
     if(cantidad_tarjetas==0){
         cantidad_paginas=0;
 
@@ -186,26 +141,21 @@ void MainWindow::mostrar_todo()
        button->move(220*x,220*y);
        x++;
    }
-
-   QString string=list.at(i).split(",").at(11);
-   if (string.length()>24){
-       button->setText(string.remove(25,string.length()));
+   QString string=list.at(i);
+   button->main=this;
+   button->cvdata=string;
+   button->link=string.split(",").at(17);
+   QString name=list.at(i).split(",").at(11);
+   if (name.length()>24){
+       button->setText(name.remove(25,name.length()));
    }
-   else{button->setText(string);}
+   else{button->setText(name);}
    button->resize(200,200);
    scene->addWidget(button);
 //   qDebug()<<list.at(i);
    }
    delete ui->graphicsView->scene();
    ui->graphicsView->setScene(scene);
-
-//   Customitem *iten;
-//   iten->
-//   iten->setX(800);
-//   iten->setY(800);
-
-//   scene->addItem(iten);
-
    }
 }
 
@@ -290,6 +240,107 @@ void MainWindow::pasar_pagina()
     }else{}
 }
 
+void MainWindow::actualizar_scroll(int pagina_actual, int slide_pos)
+{
+    if (this->modo.compare("scroll")==0){
+        if (pagina_actual==2){
+
+        }else if(pagina_actual==1){
+            this->crear_pagina_scroll();
+            this->ui->graphicsView->verticalScrollBar()->setSliderPosition((this->ui->graphicsView->verticalScrollBar()->maximum()+this->ui->graphicsView->verticalScrollBar()->size().rheight())/3+slide_pos);
+
+        }else{
+            this->crear_pagina_scroll();
+            this->ui->graphicsView->verticalScrollBar()->setSliderPosition(slide_pos-(this->ui->graphicsView->verticalScrollBar()->maximum()+this->ui->graphicsView->verticalScrollBar()->size().rheight())/3);
+
+            }
+        }
+
+
+
+}
+
+void MainWindow::crear_scroll()
+{
+    scene=new QGraphicsScene ();
+
+    QStringList list=this->dataset.split(";");
+    int x=0;
+    int y=0;
+    qDebug()<<ui->graphicsView->escala<<"de escala";
+    for(int i=(this->pagina_actual-1)*this->cantidad_tarjetas+1;(i-((this->pagina_actual-1)*this->cantidad_tarjetas))<=this->cantidad_tarjetas*3;i++){
+
+
+    Button *button=ButtonFactory::crear_boton(boton::tarjeta);
+    if ((x+1)*220*ui->graphicsView->escala<this->width()){
+        button->move(220*x,220*y);
+        x++;
+    }
+    else{
+        y++;
+        x=0;
+        button->move(220*x,220*y);
+        x++;
+    }
+    QString string=list.at(i);
+    button->main=this;
+    button->cvdata=string;
+    button->link=string.split(",").at(17);
+    QString name=list.at(i).split(",").at(11);
+    if (name.length()>24){
+        button->setText(name.remove(25,name.length()));
+    }
+    else{button->setText(name);}
+    button->resize(200,200);
+    scene->addWidget(button);
+ //   qDebug()<<list.at(i);
+    }
+    delete ui->graphicsView->scene();
+    ui->graphicsView->setScene(scene);
+    this->ui->graphicsView->verticalScrollBar()->setSliderPosition(0);
+    //    this->ui->graphicsView->verticalScrollBar()->maximum()/3
+}
+
+void MainWindow::crear_pagina_scroll()
+{
+    scene=new QGraphicsScene ();
+
+    QStringList list=this->dataset.split(";");
+    int x=0;
+    int y=0;
+    qDebug()<<ui->graphicsView->escala<<"de escala";
+    for(int i=(this->pagina_actual-1)*this->cantidad_tarjetas+1;(i-((this->pagina_actual-1)*this->cantidad_tarjetas))<=this->cantidad_tarjetas*3;i++){
+
+
+    Button *button=ButtonFactory::crear_boton(boton::tarjeta);
+    if ((x+1)*220*ui->graphicsView->escala<this->width()){
+        button->move(220*x,220*y);
+        x++;
+    }
+    else{
+        y++;
+        x=0;
+        button->move(220*x,220*y);
+        x++;
+    }
+    QString string=list.at(i);
+    button->main=this;
+    button->cvdata=string;
+    button->link=string.split(",").at(17);
+    QString name=list.at(i).split(",").at(11);
+    if (name.length()>24){
+        button->setText(name.remove(25,name.length()));
+    }
+    else{button->setText(name);}
+    button->resize(200,200);
+    scene->addWidget(button);
+ //   qDebug()<<list.at(i);
+    }
+    delete ui->graphicsView->scene();
+    ui->graphicsView->setScene(scene);
+}
+
+
 void MainWindow::poner_botones()
 {
     QLayout *layoutv=new QVBoxLayout();
@@ -349,7 +400,7 @@ void MainWindow::poner_botones()
 void MainWindow::resizeEvent(QResizeEvent *event)
 {
     if (this->modo.compare("pagina")==0){mostrar_paginacion();}
-    else if (this->modo.compare("scroll")==0){}
+    else if (this->modo.compare("scroll")==0){crear_scroll();}
     else if (this->modo.compare("todo")==0){mostrar_todo();}
    this->calcular_tarjetas();
    this->poner_botones();

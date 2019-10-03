@@ -14,7 +14,7 @@ public:
     MainWindow *main;
 protected:
     virtual void wheelEvent (QWheelEvent *event);
-    void mousePressEvent(QMouseEvent *event);
+    void scrollevent (QScrollEvent *event);
 };
 
 
