@@ -1,6 +1,7 @@
 #include "buttonfactory.h"
 #include "custombutton.h"
 #include "custompagebutton.h"
+#include "linkbutton.h"
 #include "modebutton.h"
 #include "pasarbutton.h"
 
@@ -20,6 +21,9 @@ Button* ButtonFactory::crear_boton(boton button)
     }
     else if (button==boton::cambiarmodo) {
         butn=new ModeButton;
+    }
+    else if (button==boton::link) {
+        butn=new LinkButton;
     }
     return butn;
 }

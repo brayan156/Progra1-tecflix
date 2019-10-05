@@ -1,3 +1,4 @@
+#include "mantenimientoview.h"
 #include "modebutton.h"
 
 ModeButton::ModeButton()
@@ -22,4 +23,16 @@ void ModeButton::mousePressEvent(QMouseEvent *event)
         this->main->modo="todo";
         this->main->mostrar_todo();
     }
+    else {
+        this->crearmante();
+    }
+    this->main->calcular_memoria();
+    this->main->poner_botones();
+}
+
+void ModeButton::crearmante()
+{
+    mantenimientoview *view=new mantenimientoview(this->main->dataset);
+    view->show();
+    this->main->close();
 }

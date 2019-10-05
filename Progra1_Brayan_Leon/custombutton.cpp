@@ -1,3 +1,4 @@
+#include "buttonfactory.h"
 #include "custombutton.h"
 #include "customview.h"
 
@@ -12,7 +13,7 @@ void CustomButton::mousePressEvent(QMouseEvent *event){
     QGraphicsScene *scene=new QGraphicsScene;
     int distance=0;
     int i=0;
-    for( i=0;i<this->main->titles.split(",").length();i++){
+    for( i=0;i<this->cvdata.split(",").length();i++){
         QLabel *label=new QLabel;
         label->setText(this->main->titles.split(",").at(i)+": "
         +this->cvdata.split(",").at(i));
@@ -24,7 +25,6 @@ void CustomButton::mousePressEvent(QMouseEvent *event){
     }
     qDebug()<<distance<<"de distancia";
     if (this->link.compare("")==0){}else{
-        qDebug()<<link.split("/").at(4);
     QUrl url("http://www.omdbapi.com/?apikey=cf31fe72&i="+link.split("/").at(4)+"&plot=full");
         QNetworkRequest request(url);
         this->main->mManager->get(request);
@@ -37,6 +37,11 @@ void CustomButton::mousePressEvent(QMouseEvent *event){
         label->move(0,i*22);
         label->setMinimumSize(distance*9,200);
         scene->addWidget(label);
+        Button *linkbt=ButtonFactory::crear_boton(boton::link);
+        linkbt->link=this->link;
+        linkbt->move(distance*8,i*21);
+        linkbt->setText("Trailer");
+        scene->addWidget(linkbt);
 //        qDebug()<<document["Plot"].toString();
         url.setUrl(document["Poster"].toString());
         request.setUrl(url);

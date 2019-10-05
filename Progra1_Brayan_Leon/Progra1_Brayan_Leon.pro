@@ -32,8 +32,11 @@ SOURCES += \
         custompagebutton.cpp \
         customscroll.cpp \
         customview.cpp \
+        linkbutton.cpp \
         main.cpp \
         mainwindow.cpp \
+        mantebutton.cpp \
+        mantenimientoview.cpp \
         modebutton.cpp \
         pasarbutton.cpp
 
@@ -45,7 +48,10 @@ HEADERS += \
         custompagebutton.h \
         customscroll.h \
         customview.h \
+        linkbutton.h \
         mainwindow.h \
+        mantebutton.h \
+        mantenimientoview.h \
         modebutton.h \
         pasarbutton.h
 

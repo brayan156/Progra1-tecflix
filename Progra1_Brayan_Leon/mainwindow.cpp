@@ -42,15 +42,6 @@ MainWindow::MainWindow(QWidget *parent) :
             data=reply->readAll();
             reply->deleteLater();
             QString str =QString::fromLatin1(data);
-//            std::cout<<str.toStdString()<<std::endl;
-//            QJsonDocument document = QJsonDocument::fromJson(data);
-
-//                if(document.isObject()){
-//                    QJsonObject valuesO = document.object();
-
-//                    for(auto key: valuesO.keys()){
-//                        qDebug()<<key<<" : "<<valuesO[key].toString();
-//                    }
 
              });
 
@@ -82,13 +73,6 @@ void MainWindow::leer_csv()
         string.append(linea);
         string.append(";");
 
-//        for (std::string dato; std::getline(registro, dato, ','); )
-//        {
-//            std::cout << dato << '\n';
-
-//        }
-
-//        std::cout << '\n';
     }
     cantidad_datos--;
     std::cout<<cantidad_datos;
@@ -100,21 +84,26 @@ void MainWindow::leer_csv()
 }
 
 void MainWindow::calcular_tarjetas()
-{   int tarjetasx=(this->width()/(220*this->ui->graphicsView->escala));
-    cantidad_tarjetas=tarjetasx*((this->height()-61)/(220*this->ui->graphicsView->escala));
-    double cant=tarjetasx*((this->height()-61)/(220*this->ui->graphicsView->escala));
-    if (cant-cantidad_tarjetas!=0 && cantidad_tarjetas!=0){cantidad_tarjetas+=1;}
+{
+    int tarjetasy=((this->height()-128)/(220*this->ui->graphicsView->escala));
+    int tarjetasx=((this->width()-18)/(220*this->ui->graphicsView->escala));
+    cantidad_tarjetas=tarjetasx*tarjetasy;
+
+//    if (cant-cantidad_tarjetas!=0 && cantidad_tarjetas!=0){cantidad_tarjetas+=1;}
     if(cantidad_tarjetas==0){
         cantidad_paginas=0;
 
     }
     else{
         cantidad_paginas=cantidad_datos/cantidad_tarjetas;
+
         this->botones_totales=this->width()/40;
         if (this->primer_boton>this->cantidad_paginas){
             primer_boton=this->cantidad_paginas-this->botones_totales;
         }
+        qDebug()<<cantidad_paginas<<","<<cantidad_tarjetas<<","<<cantidad_datos;
     }
+
 
 }
 
@@ -127,11 +116,39 @@ void MainWindow::mostrar_todo()
    int x=0;
    int y=0;
    qDebug()<<ui->graphicsView->escala<<"de escala";
-   for(int i=1;i<=this->cantidad_datos/100;i++){
+   for(int i=1;i<this->cantidad_datos;i++){
+       QString string=list.at(i);
+       if (string.split(",").length()<18){
+//            qDebug()<<"tamano de lista "<<list.at(i+1);
+           Button *button=ButtonFactory::crear_boton(boton::tarjeta);
+           button->main=this;
+           button->cvdata=string;
+           button->link="";
+           if ((x+1)*220*ui->graphicsView->escala<(this->width()-18)){
+               button->move(220*x,220*y);
+               x++;
+           }
+           else{
+               y++;
+               x=0;
+               button->move(220*x,220*y);
+               x++;
+           }
 
+
+           QString name="no name";
+   //        qDebug()<<i<<"en "<<pagina<<"de "<<cantidad_tarjetas;
+           if (name.length()>24){
+               button->setText(name.remove(25,string.length()));
+           }
+           else{button->setText(name);}
+           button->resize(200,200);
+           scene->addWidget(button);
+       }else{
 
    Button *button=ButtonFactory::crear_boton(boton::tarjeta);
-   if ((x+1)*220*ui->graphicsView->escala<this->width()){
+
+   if ((x+1)*220*ui->graphicsView->escala<(this->width()-18)){
        button->move(220*x,220*y);
        x++;
    }
@@ -141,7 +158,6 @@ void MainWindow::mostrar_todo()
        button->move(220*x,220*y);
        x++;
    }
-   QString string=list.at(i);
    button->main=this;
    button->cvdata=string;
    button->link=string.split(",").at(17);
@@ -154,8 +170,10 @@ void MainWindow::mostrar_todo()
    scene->addWidget(button);
 //   qDebug()<<list.at(i);
    }
+   }
    delete ui->graphicsView->scene();
    ui->graphicsView->setScene(scene);
+   this->mpaginas=1;
    }
 }
 
@@ -165,25 +183,31 @@ void MainWindow::mostrar_paginacion()
     if (this->modo.compare("pagina")==0){
    delete ui->graphicsView->scene();
     listapaginas->clear();
+    this->mpaginas=0;
     if (pagina_actual>0){
         listapaginas->append(crear_pagina(pagina_actual-1));
+        this->mpaginas++;
     }
 
     QGraphicsScene *scenex=crear_pagina(pagina_actual);
     listapaginas->append(scenex);
     scene=scenex;
+    this->mpaginas++;
     if (pagina_actual<this->cantidad_paginas){
         QGraphicsScene *sceney=crear_pagina(pagina_actual+1);
         listapaginas->append(sceney);
+        this->mpaginas++;
     }
-   qDebug()<<this->cantidad_tarjetas;
+//   qDebug()<<this->cantidad_tarjetas;
 
    ui->graphicsView->setScene(scene);
-   qDebug()<<this->cantidad_tarjetas;
+//   qDebug()<<this->cantidad_tarjetas;
     }else{}
 }
 void MainWindow::pasar_pagina()
 {
+    try {
+
     if (this->modo.compare("pagina")==0){
     qDebug()<<pagina_actual<<"estoy en esta pagina";
     qDebug()<<sig_pagina<<"voy para esta pagina";
@@ -191,29 +215,41 @@ void MainWindow::pasar_pagina()
     if (this->cantidad_paginas==0){}
     else if (sig_pagina==pagina_actual){}
     else if(sig_pagina==pagina_actual+1){
+        this->mpaginas=0;
         pagina_actual=sig_pagina;
 //        ui->graphicsView->invalidateScene();
         scene=listapaginas->last();
+        this->mpaginas++;
+        this->mpaginas++;
         ui->graphicsView->setScene(scene);
         if (listapaginas->length()==3){
             qDebug()<<listapaginas->length()<<"paginas guardadas2";
             listapaginas->removeFirst();
+            this->mpaginas--;
         }
         qDebug()<<listapaginas->length()<<"paginas guardadas3";
+        if (pagina_actual<this->cantidad_paginas-1){
+            this->mpaginas=0;
         listapaginas->append(crear_pagina(pagina_actual+1));
+        this->mpaginas++;
+        }
         qDebug()<<listapaginas->length()<<"paginas guardadas4";
 
     }
     else if(sig_pagina==pagina_actual-1){
-
+        this->mpaginas=0;
         pagina_actual=sig_pagina;
         scene=listapaginas->first();
+        this->mpaginas++;
+        this->mpaginas++;
         ui->graphicsView->setScene(scene);
         if (listapaginas->length()==3){
             listapaginas->removeLast();
+            this->mpaginas--;
         }
         if (pagina_actual>0){
         listapaginas->insert(0,crear_pagina(pagina_actual-1));
+        this->mpaginas++;
         }
 //        ui->graphicsView->invalidateScene();
 
@@ -224,20 +260,26 @@ void MainWindow::pasar_pagina()
         qDeleteAll(this->ui->graphicsView->items());
         if (pagina_actual>0){
             listapaginas->append(crear_pagina(pagina_actual-1));
+            this->mpaginas++;
         }
 
         QGraphicsScene *scenex=crear_pagina(pagina_actual);
         listapaginas->append(scenex);
+        this->mpaginas++;
         scene=scenex;
-        if (pagina_actual<this->cantidad_paginas){
+        if (pagina_actual<this->cantidad_paginas-1){
             QGraphicsScene *sceney=crear_pagina(pagina_actual+1);
             listapaginas->append(sceney);
+            this->mpaginas++;
         }
-       qDebug()<<this->cantidad_tarjetas;
+//       qDebug()<<this->cantidad_tarjetas;
        ui->graphicsView->setScene(scene);
-       qDebug()<<this->cantidad_tarjetas;
+//       qDebug()<<this->cantidad_tarjetas;
     }
     }else{}
+    } catch (exception e) {
+      qDebug()<<"error inesperado ocurrido";
+    }
 }
 
 void MainWindow::actualizar_scroll(int pagina_actual, int slide_pos)
@@ -272,7 +314,7 @@ void MainWindow::crear_scroll()
 
 
     Button *button=ButtonFactory::crear_boton(boton::tarjeta);
-    if ((x+1)*220*ui->graphicsView->escala<this->width()){
+    if ((x+1)*220*ui->graphicsView->escala<(this->width()-18)){
         button->move(220*x,220*y);
         x++;
     }
@@ -298,7 +340,7 @@ void MainWindow::crear_scroll()
     delete ui->graphicsView->scene();
     ui->graphicsView->setScene(scene);
     this->ui->graphicsView->verticalScrollBar()->setSliderPosition(0);
-    //    this->ui->graphicsView->verticalScrollBar()->maximum()/3
+    this->mpaginas=3;
 }
 
 void MainWindow::crear_pagina_scroll()
@@ -340,12 +382,20 @@ void MainWindow::crear_pagina_scroll()
     ui->graphicsView->setScene(scene);
 }
 
+void MainWindow::calcular_memoria()
+{
+    Button *button=new Button;
+    if (this->modo.compare("todo")==0){this->mpagina=sizeof (*button)*this->cantidad_datos;}
+    else {this->mpagina=sizeof (*button)*this->cantidad_tarjetas;}
+}
+
 
 void MainWindow::poner_botones()
 {
     QLayout *layoutv=new QVBoxLayout();
     QLayout *layouth=new QHBoxLayout();
     QLayout *layouth2=new QHBoxLayout();
+    QLayout *layouth3=new QHBoxLayout();
     qDebug()<<ui->groupBox->accessibleDescription().compare("tengo layout");
     if (ui->groupBox->accessibleDescription().compare("tengo layout")==0){
         qDeleteAll(ui->groupBox->children());
@@ -353,6 +403,7 @@ void MainWindow::poner_botones()
     }
         layoutv->addItem(layouth);
         layoutv->addItem(layouth2);
+        layoutv->addItem(layouth3);
         Button *button=ButtonFactory::crear_boton(boton::pasar);
         button->main=this;
         button->setText("<");
@@ -362,19 +413,24 @@ void MainWindow::poner_botones()
     Button *boton1=ButtonFactory::crear_boton(boton::cambiarmodo);
     Button *boton2=ButtonFactory::crear_boton(boton::cambiarmodo);
     Button *boton3=ButtonFactory::crear_boton(boton::cambiarmodo);
+    Button *boton4=ButtonFactory::crear_boton(boton::cambiarmodo);
     boton1->setText("pagina");
     boton2->setText("scroll");
     boton3->setText("todo");
+    boton4->setText("mantenimiento");
     boton1->main=this;
     boton2->main=this;
     boton3->main=this;
+    boton4->main=this;
     layouth2->addWidget(boton1);
     layouth2->addWidget(boton2);
     layouth2->addWidget(boton3);
+    layouth2->addWidget(boton4);
 
     layouth->setSpacing(0);
-    for (int i=1; i<this->cantidad_paginas;i++){
-        if ((i+1)*40>this->width() || i+primer_boton==this->cantidad_paginas){
+    int i;
+    for (i=1; i<this->cantidad_paginas;i++){
+        if ((i+1)*40>this->width() || i+primer_boton>this->cantidad_paginas){
             Button *button=ButtonFactory::crear_boton(boton::pasar);
             button->setText(">");
             button->setMinimumSize(10,10);
@@ -389,8 +445,13 @@ void MainWindow::poner_botones()
         button->resize(40,10);
         button->main=this;
         layouth->addWidget(button);
+
          }
     ui->groupBox->setAccessibleDescription("tengo layout");
+    this->mbotones=sizeof(*button)*(i+4);
+    layouth3->addWidget(new QLabel("pagina: "+QString::number(this->mpagina)));
+    layouth3->addWidget(new QLabel("paginas: "+QString::number(this->mpagina*this->mpaginas)));
+    layouth3->addWidget(new QLabel("todo: "+QString::number(this->mpagina*this->mpaginas+sizeof(*this)+this->mbotones)));
     ui->groupBox->setLayout(layoutv);
 
 }
@@ -399,27 +460,73 @@ void MainWindow::poner_botones()
 
 void MainWindow::resizeEvent(QResizeEvent *event)
 {
-    if (this->modo.compare("pagina")==0){mostrar_paginacion();}
-    else if (this->modo.compare("scroll")==0){crear_scroll();}
+    int dato_actual=this->pagina_actual*this->cantidad_tarjetas;
+    this->calcular_tarjetas();
+    int tarjetasy=((this->height()-128)/(220*this->ui->graphicsView->escala));
+    int tarjetasx=((this->width()-18)/(220*this->ui->graphicsView->escala));
+    int cantidad_tarjetas=tarjetasx*tarjetasy;
+    if(cantidad_tarjetas==0){
+        cantidad_paginas=0;
+
+    }
+    else{
+        this->pagina_actual=dato_actual/cantidad_tarjetas;
+    }
+    if (this->modo.compare("pagina")==0){this->mostrar_paginacion();}
+    else if (this->modo.compare("scroll")==0){if(pagina_actual==0){pagina_actual++;}crear_scroll();}
     else if (this->modo.compare("todo")==0){mostrar_todo();}
-   this->calcular_tarjetas();
-   this->poner_botones();
+    this->calcular_memoria();
+    this->poner_botones();
+
+
 }
 
 QGraphicsScene* MainWindow::crear_pagina(int pagina)
 {
+
+
     QGraphicsScene *scenex=new QGraphicsScene();
     QStringList list=this->dataset.split(";");
+qDebug()<<"tamano de i "<<pagina*this->cantidad_tarjetas+1;
     int x=0;
     int y=0;
+
 //    qDebug()<<ui->graphicsView->escala;
-    for(int i=pagina*this->cantidad_tarjetas+1;(i-(pagina*this->cantidad_tarjetas))<=this->cantidad_tarjetas;i++){
+    for(int i=pagina*this->cantidad_tarjetas+1;(i-(pagina*this->cantidad_tarjetas))<=this->cantidad_tarjetas;i++){        
+        if (i>=this->cantidad_datos){}else{
         QString string=list.at(i);
+        if (string.split(",").length()<18){
+//            qDebug()<<"tamano de lista "<<list.at(i+1);
+            Button *button=ButtonFactory::crear_boton(boton::tarjeta);
+            button->main=this;
+            button->cvdata=string;
+            button->link="";
+            if ((x+1)*220*ui->graphicsView->escala<(this->width()-18)){
+                button->move(220*x,220*y);
+                x++;
+            }
+            else{
+                y++;
+                x=0;
+                button->move(220*x,220*y);
+                x++;
+            }
+
+
+            QString name="no name";
+    //        qDebug()<<i<<"en "<<pagina<<"de "<<cantidad_tarjetas;
+            if (name.length()>24){
+                button->setText(name.remove(25,string.length()));
+            }
+            else{button->setText(name);}
+            button->resize(200,200);
+            scenex->addWidget(button);
+        }else{
         Button *button=ButtonFactory::crear_boton(boton::tarjeta);
         button->main=this;
         button->cvdata=string;
         button->link=string.split(",").at(17);
-        if ((x+1)*220*ui->graphicsView->escala<this->width()){
+        if ((x+1)*220*ui->graphicsView->escala<(this->width()-18)){
             button->move(220*x,220*y);
             x++;
         }
@@ -432,16 +539,19 @@ QGraphicsScene* MainWindow::crear_pagina(int pagina)
 
 
         QString name=string.split(",").at(11);
-        qDebug()<<i<<"en "<<pagina<<"de "<<cantidad_tarjetas;
+//        qDebug()<<i<<"en "<<pagina<<"de "<<cantidad_tarjetas;
         if (name.length()>24){
             button->setText(name.remove(25,string.length()));
         }
         else{button->setText(name);}
         button->resize(200,200);
         scenex->addWidget(button);
+        }
     }
-    qDebug()<<"salgo";
+    }
+    qDebug()<<"salgo de crear pagina";
     return scenex;
+
 }
 
 

@@ -11,6 +11,7 @@ enum boton{
   pagina,
   cambiarmodo,
   tarjeta,
+  link
 };
 class ButtonFactory
 {

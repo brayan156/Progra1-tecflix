@@ -32,6 +32,7 @@ public:
     void actualizar_scroll(int pagina_actual,int slidepos);
     void crear_scroll();
     void crear_pagina_scroll();
+    void calcular_memoria();
     void resizeEvent(QResizeEvent *event);
     QGraphicsScene* crear_pagina(int pagina);
     int primer_boton=0;
@@ -44,13 +45,16 @@ public:
     QByteArray data;
     QString titles;
     QNetworkAccessManager *mManager;
-private:
-    Ui::MainWindow *ui;
-    QGraphicsItem *item;
-    QGraphicsScene *scene=new QGraphicsScene;
+    int cantidad_tarjetas=1;
+    long mbotones=0;
+    long mpagina=0;
+    long mpaginas=0;
 
+private:    
+    QGraphicsScene *scene=new QGraphicsScene;
     int cantidad_datos;
-    int cantidad_tarjetas;
+    Ui::MainWindow *ui;
+
 
 
 

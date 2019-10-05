@@ -10,6 +10,8 @@ class ModeButton:public Button
 public:
     ModeButton();
     void mousePressEvent(QMouseEvent *event);
+    void crearmante();
+
 };
 
 #endif // MODEBUTTON_H

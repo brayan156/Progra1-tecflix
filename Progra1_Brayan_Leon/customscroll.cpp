@@ -7,6 +7,7 @@ CustomScroll::CustomScroll()
 
 void CustomScroll::mouseReleaseEvent(QMouseEvent *event)
 {
+    if (this->main->modo.compare("scroll")==0){
     int tamano_pagina=this->maximum()/3;
     int slide=this->sliderPosition();
     int pagina_actual;
@@ -44,7 +45,7 @@ void CustomScroll::mouseReleaseEvent(QMouseEvent *event)
         }
     }
     this->main->actualizar_scroll(pagina_actual,slide);
-
+    }
 
     //    QScrollBar::mouseReleaseEvent(event);
 }
